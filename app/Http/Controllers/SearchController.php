@@ -1,0 +1,36 @@
+<?php
+declare(strict_types=1);
+namespace App\Http\Controllers;
+
+use App\Services\ApiService;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
+
+/**
+ * 1. return search screens artist or album
+ * 2. handle album and artist search
+ * 3. handle search artist and album post request
+ */
+
+class SearchController extends Controller
+{
+    //constructor function
+    public function __construct(protected ApiService $apiService){
+
+    }
+    public function index():Response{
+        return Inertia::render("Search/SearchPage");
+    }
+    
+    public function artist(Request $request):Response{
+        $this->validate($request, [
+            "artist" => "required"
+        ]);
+            $artist = $request->artist;
+            $response = $this->apiService->searchArtist($artist);
+            return Inertia::render("Welcome", $response);
+       
+    }
+
+}

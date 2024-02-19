@@ -16,17 +16,16 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'google_id'
+       'password'
     ];
 
     protected $hidden = [
         'remember_token',
+        'password'
     ];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public $incrementing = false;
-    protected $primaryKey = "google_id";
-    protected $keyType ='string';
+
 }

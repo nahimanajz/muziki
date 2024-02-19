@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
 use Laravel\Socialite\Facades\Socialite;
-use App\Http\Controllers\Auth\Redirect;
+
 
 class AuthenticatedSessionController extends Controller
 {

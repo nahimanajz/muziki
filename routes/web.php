@@ -1,12 +1,10 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\FavoriteArtistController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -29,13 +27,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return ;
-})->middleware(['auth'])->name('dashboard');
-
-
-// GoogleLoginController redirect and callback urls
-Route::get('/auth/google', [AuthenticatedSessionController::class, 'redirectToGoogle'])->name('auth.google');
-Route::get('/auth/google/callback', [AuthenticatedSessionController::class, 'handleGoogleCallback']);
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -43,6 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('artists', FavoriteArtistController::class)->only(["index"]);
+Route::controller(SearchController::class)->group(function(){
+    Route::get('/search', 'index')->name('search');
+    Route::post('/search/artist', 'artist')->name('search.artist');
+    Route::post('/search/album', 'album')->name('search.album');
+});
 
 require __DIR__.'/auth.php';
