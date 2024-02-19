@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreArtistRequest;
 use App\Models\FavoriteArtist;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Http\Requests\StoreArtistsRequest;
 
 class FavoriteArtistController extends Controller
 {
@@ -17,7 +19,6 @@ class FavoriteArtistController extends Controller
      */
     public function index()
     {
-       
         return Inertia::render("artists")->middleware(["auth"]);
     }
 
@@ -26,7 +27,9 @@ class FavoriteArtistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //TODO:add validation using form request
+        FavoriteArtist::create(array_merge($request->all(), ["userId" => $request->user()->id ?? 1]));
+        //dd($request);
     }
 
     /**
@@ -34,7 +37,7 @@ class FavoriteArtistController extends Controller
      */
     public function show(FavoriteArtist $favoriteArtist)
     {
-        //
+       // return
     }
 
     /**
@@ -50,13 +53,14 @@ class FavoriteArtistController extends Controller
      */
     public function destroy(FavoriteArtist $favoriteArtist)
     {
-        //
+        FavoriteArtist::find($favoriteArtist->id)->delete();
+        return response(["message"=> "Record deleted successfully"]);
     }
     //     implement the artist and album search functionalities using Laravel’s built
-// in controllers and resource routes. A
-//TODO: search album by name
-// public function searchAlbums(string $album):string[]{
+    // in controllers and resource routes. A
+    //TODO: search album by name
+    // public function searchAlbums(string $album):string[]{
 
-// }
+    // }
 
 }

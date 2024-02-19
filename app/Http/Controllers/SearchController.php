@@ -15,20 +15,26 @@ use Inertia\Response;
 
 class SearchController extends Controller
 {
-    //constructor function
+    
     public function __construct(protected ApiService $apiService){
 
     }
-    public function index():Response{
-        return Inertia::render("Search/SearchPage");
-    }
-    
+ 
     public function artist(Request $request):Response{
         $this->validate($request, [
             "artist" => "required"
         ]);
             $artist = $request->artist;
             $response = $this->apiService->searchArtist($artist);
+            return Inertia::render("Welcome", $response);
+       
+    }
+    public function album(Request $request):Response{
+        $this->validate($request, [
+            "album" => "required"
+        ]);
+          
+            $response = $this->apiService->searchAlbum($request->album);
             return Inertia::render("Welcome", $response);
        
     }

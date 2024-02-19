@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class FavoriteArtist extends Model
 {
     use HasFactory;
+    protected $guarded=[];
 }

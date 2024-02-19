@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FavoriteArtistController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Foundation\Application;
@@ -37,9 +38,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::controller(SearchController::class)->group(function(){
-    Route::get('/search', 'index')->name('search');
+ 
     Route::post('/search/artist', 'artist')->name('search.artist');
     Route::post('/search/album', 'album')->name('search.album');
 });
-
+//TODO: add middle ware auth to accept only request for authenticated users
+Route::resource("artist", FavoriteArtistController::class);
 require __DIR__.'/auth.php';
