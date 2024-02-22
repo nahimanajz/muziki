@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\FavoriteAlbum;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
+
 
 class FavoriteAlbumController extends Controller
 {
@@ -12,7 +15,9 @@ class FavoriteAlbumController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render("Artists", [
+            "favoriteArtists" => FavoriteAlbum::where("userId", "=", Auth::user()->id),
+        ]);
     }
 
     /**

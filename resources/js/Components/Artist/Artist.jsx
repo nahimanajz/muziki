@@ -1,7 +1,8 @@
 import NavLink from "@/Components/NavLink";
-import PrimaryButton from "./PrimaryButton";
+import PrimaryButton from "../PrimaryButton";
 import { useForm } from "@inertiajs/react";
-export default function Artist({ artist }) {
+
+export default function Artist({ auth, artist }) {
 
     const image = artist.image[artist.image.length - 1]["#text"]
     const { post } = useForm({...artist, image});
@@ -31,9 +32,10 @@ export default function Artist({ artist }) {
                 </NavLink>
             </div>
             <p className="text-dark mt-2 font-bold">{artist.streamable}</p>
-            <PrimaryButton onClick={addToFavorite}>
+            {auth.user ?( <PrimaryButton onClick={addToFavorite}>
                 Add to Favorite
-            </PrimaryButton>
+            </PrimaryButton>):null}
+           
         </div>
     );
 }

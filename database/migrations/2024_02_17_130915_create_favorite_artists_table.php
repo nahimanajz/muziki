@@ -1,6 +1,5 @@
 <?php
 
-use Ramsey\Uuid\Uuid;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('favorite_artists', function (Blueprint $table) {
-            $table->uuid("id")->primary()->default(Uuid::uuid4());
+            $table->id();
             $table->foreignId("userId");
             $table->string("name")->unique();
             $table->integer("listeners");

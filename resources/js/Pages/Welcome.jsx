@@ -1,6 +1,6 @@
 import Search from "@/Components/Search";
 
-import Artist from "@/Components/Artist";
+import Artist from "@/Components/Artist/Artist";
 import GuestLayout from "@/Layouts/GuestLayout";
 
 export default function Welcome({ auth, laravelVersion, phpVersion, artists }) {
@@ -17,7 +17,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion, artists }) {
                     }
                 />
             ) : (
-                <div className="w-scree h-screen bg-blue-200">
+                <div className="w-full h-screen bg-blue-200">
                     Signed in user
                 </div>
             )}

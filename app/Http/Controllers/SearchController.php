@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\ApiService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -26,6 +27,9 @@ class SearchController extends Controller
         ]);
             $artist = $request->artist;
             $response = $this->apiService->searchArtist($artist);
+            if(Auth::check()){
+                return Inertia::render("Artists", $response);
+            }
             return Inertia::render("Welcome", $response);
        
     }

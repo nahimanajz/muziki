@@ -9,4 +9,5 @@ class FavoriteArtist extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    protected $table="favorite_artists";
 }
