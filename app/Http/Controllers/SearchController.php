@@ -24,6 +24,10 @@ class SearchController extends Controller
     {
     }
 
+    public function findAlbum(): Response
+    {
+        return Inertia::render('Search/Album');
+    }
     public function artist(Request $request): Response
     {
 
@@ -41,10 +45,11 @@ class SearchController extends Controller
     public function album(Request $request): Response
     {
         $this->validate($request, [
-            "album" => "required"
+            "album" => "required",
+            "artist" => "required"
         ]);
 
-        $response = $this->apiService->searchAlbum($request->album);
-        return Inertia::render("Welcome", $response);
+        $response = $this->apiService->searchAlbum(artist: $request->artist, album: $request->album);
+        return Inertia::render("Search/Album", $response);
     }
 }

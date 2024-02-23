@@ -23,14 +23,14 @@ class ApiService
 
         return ["artists" => $data];
     }
-    
-    public function searchAlbum(string $album): array
-    {
-        $albumUrl = "" . env("LASTFM_URL") . "album.search&album=" . $album . "&api_key=" . env("LASTFM_APIKEY") . "&format=json";
-        $response = $this->apiClient->get($albumUrl)->getBody()->getContents();
-        $contents = json_decode($response);
-        $data = $contents?->results?->albummatches?->album;
 
-        return ["albums" => $data];
+    public function searchAlbum(string $artist, string $album): array
+    {
+
+        $albumUrl = "" . env("LASTFM_URL") . "album.getinfo&api_key=" . env("LASTFM_APIKEY") . "&artist=" . $artist . "&album=" . $album . "&format=json";
+        $contents = $this->apiClient->get($albumUrl)->getBody()->getContents();
+        $data = json_decode($contents);
+
+        return ["album" => $data?->album];
     }
 }

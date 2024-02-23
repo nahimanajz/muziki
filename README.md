@@ -49,3 +49,16 @@ images: [
 5. create git [repository](https://github.com/nahimanajz)
 
 
+
+NB:
+to search artist name and get toptrack and top album you need to hit these both apis
+[TOPTRACK](https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=cher&api_key=APIKEY&format=json)
+[gettopAlbum](https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=cher&api_key=APIKEY&format=json)
+
+3. Album search: users should be able to search for albums by name and view 
+their basic information, including the artist, release date, and track list.
+
+Available fields
+----------------
+- 
+ [](https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=8b238083d2af17e0a983a19782a88ddd&artist=Cher&album=Believe&format=json)

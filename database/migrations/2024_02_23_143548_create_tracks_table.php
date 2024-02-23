@@ -11,19 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('favorite_albums', function (Blueprint $table) {
+        Schema::create('tracks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("albumId");
             $table->string("name");
-            $table->string("artist");
-            $table->foreignId("userId");
+            $table->integer("duration");
             $table->string("url");
-            $table->integer("playCount");
-            $table->dateTime("published");
-            $table->timestamps();
 
-            $table->foreign("userId")->references("id")->on("users");
-
-
+            $table->foreign("albumId")->references("id")->on("favorite_albums");
+           
         });
     }
 
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('favorite_albums');
+        Schema::dropIfExists('tracks');
     }
 };

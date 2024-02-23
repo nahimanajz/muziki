@@ -17,9 +17,7 @@ export default function Search() {
             e.preventDefault();
             if (!enabled) {
                 post(route("search.artist"));
-            } else {
-                post(route("search.album"));
-            }
+            } 
             
         } catch (error) {
             toast.error(error.message)

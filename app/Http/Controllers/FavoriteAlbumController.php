@@ -6,6 +6,7 @@ use App\Models\FavoriteAlbum;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 
 class FavoriteAlbumController extends Controller
@@ -15,17 +16,19 @@ class FavoriteAlbumController extends Controller
      */
     public function index()
     {
-        return Inertia::render("Artists", [
-            "favoriteArtists" => FavoriteAlbum::where("userId", "=", Auth::user()->id),
-        ]);
+        $favAlbums = FavoriteAlbum::where("userId",  Auth::id())->orderBy('created_at', 'desc')->get();
+        return Inertia::render("Album", ["favoriteAlbums" => $favAlbums]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request):RedirectResponse
     {
-        //
+        $data = array_merge($request->all(), ["userId" => Auth::id()]);
+        FavoriteAlbum::create($data);
+        return redirect()->route("albums.index"); 
+
     }
 
     /**
