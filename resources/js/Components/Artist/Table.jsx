@@ -1,26 +1,27 @@
 import { Link, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 import ActionIcons from "../ActionIcons";
-import Modal from "../Modal";
-import { router, usePage } from '@inertiajs/react'
-import { toast } from 'react-toastify';
+import { router, usePage } from "@inertiajs/react";
+import { toast } from "react-toastify";
+import DeleteModal from "./DeleteModal";
+import EditModal from "./EditModal";
 
 const Table = ({ data }) => {
     const [deleteModal, setDeleteModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
     const [artist, setArtist] = useState();
-    const{errors, patch} = useForm({})
-    const {sharedData}= usePage();
- 
-    const toggleDeleteModal = () => setDeleteModal(!deleteModal);
+   
+    const { sharedData } = usePage().props;
 
-    const handleDelete = () => {
-      router.delete(`artist/${artist.id}`);
-      toast.success(sharedData?.message)
+    const toggleDeleteModal = () => setDeleteModal(!deleteModal);
+    const toggleEditModal = () => setEditModal(!editModal);
+
+    const deleteArtist = () => {
+        router.delete(`artist/${artist.id}`);
+        toggleDeleteModal();
     };
-    const handleEdit = () => {
-      patch(route("artist.edit",route.id))
-    }
+
+   
 
     return (
         <>
@@ -93,9 +94,10 @@ const Table = ({ data }) => {
                                                 setArtist(record);
                                                 toggleDeleteModal();
                                             }}
-                                            onEdit={() =>
-                                                setEditModal(!editModal)
-                                            }
+                                            onEdit={() => {
+                                                setArtist(record);
+                                                setEditModal(!editModal);
+                                            }}
                                             onShowDetail={undefined}
                                         />
                                     </td>
@@ -104,35 +106,17 @@ const Table = ({ data }) => {
                     </tbody>
                 </table>
             </div>
-
-            <Modal
-                show={deleteModal}
-                closeable={true}
-                onClose={toggleDeleteModal}
-                position={"items-start"}
-            >
-                <div className="bg-white rounded-lg overflow-hidden z-20">
-                    <div className="p-4">
-                        <h1 className="text-lg font-semibold mb-2">
-                            Are you sure you want to delete?
-                        </h1>
-                        <div className="flex justify-end">
-                            <button
-                                onClick={toggleDeleteModal}
-                                className="text-gray-600 mr-2"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                onClick={handleDelete}
-                                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-                            >
-                                Confirm Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </Modal>
+            <DeleteModal
+                deleteModal={deleteModal}
+                toggleDeleteModal={toggleDeleteModal}
+                handleDelete={deleteArtist}
+            />
+            <EditModal
+                artist={artist}
+                show={editModal}
+                toggleShow={toggleEditModal}
+             
+            />
         </>
     );
 };

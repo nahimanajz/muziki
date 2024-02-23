@@ -3,9 +3,11 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import ArtistItem from "@/Components/Artist/Artist";
 import { useState } from "react";
 import Table from "@/Components/Artist/Table";
+import PrimaryButton from "@/Components/PrimaryButton";
 
 export default function Artist({ auth, artists, favoriteArtists }) {
     const [showFavorite, setShowFavorite] = useState(true);
+    const toggleShowFavorite= () => setShowFavorite(!showFavorite)
 
     return (
         <AuthenticatedLayout
@@ -16,6 +18,12 @@ export default function Artist({ auth, artists, favoriteArtists }) {
                 </h2>
             }
         >
+            <PrimaryButton 
+            className="mb-12 float-end relative"
+            onClick={toggleShowFavorite}>
+              
+                {showFavorite ? "Add Favorie" : "Show Favorites"}
+            </PrimaryButton>
             {!showFavorite ? (
                 <>
                     <div className="bg-gray-50">
@@ -34,7 +42,7 @@ export default function Artist({ auth, artists, favoriteArtists }) {
                     </div>
                 </>
             ) : (
-                <div className="">
+                <div className="p-auto">
                     <Table data={favoriteArtists} />
                 </div>
             )}

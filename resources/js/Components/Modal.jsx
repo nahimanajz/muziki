@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
-export default function Modal({ children, show = false, maxWidth = 'xl',position="items-center", closeable = true, onClose  }) {
+export default function Modal({ children, show = false, maxWidth = 'xl',position="items-center", closeable = true, onClose, padding =true }) {
     const close = () => {
         if (closeable) {
             onClose();

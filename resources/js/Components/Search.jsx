@@ -6,18 +6,25 @@ import { useForm } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { useState } from "react";
 import { Switch } from "@headlessui/react";
+import { toast } from "react-toastify";
 
-export default function Search({artists}) {
+export default function Search() {
     const { data, setData, post, errors } = useForm({});
     const [enabled, setEnabled] = useState(false);
 
     const handleSearch = (e) => {
-        e.preventDefault();
-        if (!enabled) {
-            post(route("search.artist"));
-        } else {
-            post(route("search.album"));
+        try {
+            e.preventDefault();
+            if (!enabled) {
+                post(route("search.artist"));
+            } else {
+                post(route("search.album"));
+            }
+            
+        } catch (error) {
+            toast.error(error.message)
         }
+       
     };
     const handleChange = (e) => {
         if (!enabled) {
@@ -26,9 +33,7 @@ export default function Search({artists}) {
             setData({album: e.target.value});
         }
     };
-    if(artists){
-        console.log(JSON.parse(artists))
-    }
+    
 
     return (
         <>
@@ -81,7 +86,7 @@ export default function Search({artists}) {
                             isFocused
                             autoComplete="search"
                         />
-                     {JSON.stringify(data)}
+                   
                         <InputError className="mt-2" message={errors.name} />
                     </div>
                     <div className="self-center pt-7">

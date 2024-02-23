@@ -9,7 +9,7 @@ const ActionIcons = ({onDelete, onEdit, onShowDetail}) => {
       
       <FaEdit size={20} color="blue" onClick={onEdit}/>
       
-      <FaInfoCircle size={20} color="green" onClick={onShowDetail}/>
+      {/* <FaInfoCircle size={20} color="green" onClick={onShowDetail}/> */}
     </div>
   );
 };
