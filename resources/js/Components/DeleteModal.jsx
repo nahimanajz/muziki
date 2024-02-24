@@ -1,6 +1,7 @@
-import Modal from "../Modal";
+import Modal from "./Modal";
 
 export default function DeleteModal({deleteModal, toggleDeleteModal, handleDelete}){
+    
 return(
     <Modal
     show={deleteModal}

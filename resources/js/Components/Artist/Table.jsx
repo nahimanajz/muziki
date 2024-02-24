@@ -1,17 +1,15 @@
 import { Link, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 import ActionIcons from "../ActionIcons";
-import { router, usePage } from "@inertiajs/react";
-import { toast } from "react-toastify";
-import DeleteModal from "./DeleteModal";
+import { router } from "@inertiajs/react";
+
+import DeleteModal from "../DeleteModal";
 import EditModal from "./EditModal";
 
 const Table = ({ data }) => {
     const [deleteModal, setDeleteModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
     const [artist, setArtist] = useState();
-   
-    const { sharedData } = usePage().props;
 
     const toggleDeleteModal = () => setDeleteModal(!deleteModal);
     const toggleEditModal = () => setEditModal(!editModal);

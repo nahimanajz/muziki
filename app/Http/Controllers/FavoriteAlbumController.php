@@ -52,13 +52,25 @@ class FavoriteAlbumController extends Controller
     public function update(Request $request, FavoriteAlbum $favoriteAlbum)
     {
         //
+        $validated = $request->validate([
+            "name" => "required|string",
+            "artist" => "required",
+            "url" => "url:http,https|required",
+            "playCount" => "required|integer",
+        ]);
+        
+        $album = FavoriteAlbum::find($request->route('album'));
+        $album->update($validated);
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FavoriteAlbum $favoriteAlbum)
+    public function destroy(int $albumId):RedirectResponse
     {
-        //
+        $album = FavoriteAlbum::find($albumId);
+        $album->delete();
+        return redirect()->back();
     }
 }
