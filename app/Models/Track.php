@@ -10,9 +10,11 @@ class Track extends Model
 {
     use HasFactory;
 
-  
-    public function album(): BelongsTo
+    protected $fillable = ["albumId", "name","duration", "url"];
+    public $timestamps =false;
+
+    public function favoriteAlbum(): BelongsTo
     {
-        return $this->belongsTo(FavoriteAlbum::class);
+        return $this->belongsTo(FavoriteAlbum::class,"albumId");
     }
 }

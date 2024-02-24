@@ -10,7 +10,7 @@ export default function AuthLinks() {
             Dashboard
         </NavLink>
         <NavLink
-            href={route("dashboard")}
+            href={route("album.index")}
             className="font-semibold text-gray-600 hover:text-gray-900  focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
         >
             Albums

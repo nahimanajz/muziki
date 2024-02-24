@@ -15,7 +15,7 @@ export default function Artist({ auth, artist, message }) {
 
     return (
         <div
-            className={`max-w-xs mx-auto p-4 h-auto items-strecth border-[.5px] border-slate-800 rounded-md shadow-lg w-auto`}
+            className={`max-w-xs mx-auto p-4 h-auto items-strecth  hover:bg-slate-50 rounded-md shadow-lg w-auto`}
         >
             <img src={image} />
             {errors ? <InputError message={errors.name} /> : ""}
@@ -27,7 +27,7 @@ export default function Artist({ auth, artist, message }) {
                     {artist.listeners}
                 </h2>
                 <NavLink
-                    className="font-semibold mt-2 text-primary hover:text-secondary hover:no-underline"
+                    className="font-semibold mt-2 text-slate-800 hover:text-secondary hover:no-underline"
                     href={artist.url}
                 >
                     {artist.url.substring(0, 15)}...

@@ -21,7 +21,9 @@ const Table = ({ data }) => {
         toggleDeleteModal();
     };
 
-   
+    const thClx = "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+    const tdClx = "px-6 py-4 whitespace-nowrap"
+
 
     return (
         <>
@@ -29,26 +31,26 @@ const Table = ({ data }) => {
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                         <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className={thClx}>
                                 Name
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className={thClx}>
                                 Listeners
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className={thClx}>
                                 Streamable
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className={thClx}>
                                 MBID
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className={thClx}>
                                 URL
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className={thClx}>
                                 Image
                             </th>
 
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className={thClx}>
                                 Action{" "}
                             </th>
                         </tr>
@@ -57,22 +59,22 @@ const Table = ({ data }) => {
                         {data &&
                             data.map((record) => (
                                 <tr key={record.id}>
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td className={tdClx}>
                                         {record.name}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td className={tdClx}>
                                         {record.listeners}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td className={tdClx}>
                                         {record.streamable ? "Yes" : "No"}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td className={tdClx}>
                                         {!record.mbid
                                             ? "N/A"
                                             : record.mbid.substring(0, 5) +
                                               "..."}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td className={tdClx}>
                                         <Link
                                             href={record.url}
                                             className="text-blue-500 cursor-pointer"
@@ -80,7 +82,7 @@ const Table = ({ data }) => {
                                             {record.url}
                                         </Link>
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td className={tdClx}>
                                         <img
                                             src={record.image}
                                             alt="User"

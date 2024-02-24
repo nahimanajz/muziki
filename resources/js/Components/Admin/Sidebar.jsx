@@ -22,8 +22,8 @@ const Sidebar = ({ isOpen }) => {
                 
                 <NavLink 
                 className="h-12 py-8"
-                    //href={route("album")}
-                    // active={route().current("album")}
+                   href={route("album.index")}
+                   active={route().current("album")}
                 >
                     Albums
                 </NavLink>

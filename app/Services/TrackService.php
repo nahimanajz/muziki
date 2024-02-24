@@ -9,10 +9,16 @@ use App\Models\Track;
 class TrackService
 {
 
-
-    public function createTrack(int $albumId, Track $track): array
+    /**
+     * @param Track as array of album related tracks from lastFm api
+     * @param albumId the id of the recently saved album
+     * - append album id to track record
+     */
+    public function createTrack(int $albumId, array $tracks): void
     {
-        Track::create(array_merge($track, ["albumId" => $albumId]));
-        return ["message" => "track created successfully"];
+
+        foreach ($tracks as $track) {
+            Track::create(array_merge($track, ["albumId" => $albumId]));
+        }
     }
 }

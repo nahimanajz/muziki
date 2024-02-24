@@ -6,21 +6,22 @@ import { useForm } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 
 export default function Album({ auth, album }) {
-    const { data, setData } = useForm();
+    const { data, setData,post,processing, progress, errors } = useForm();
 
     useEffect(() => {
         setData({
             artist: album?.artist,
             mbid: album?.mbid,
-            playCount: album?.playCount,
+            playCount: album?.playcount,
             name: album?.name,
             url: album?.url,
             published: album?.wiki?.published,
             tracks: album?.tracks?.track,
+            listeners: album?.listeners
         });
     }, [album]);
     const handleAddToFavorite = () => {
-        post(route("album"))
+        post(route("album.store"))
     };
 
     if (auth && auth.user) {

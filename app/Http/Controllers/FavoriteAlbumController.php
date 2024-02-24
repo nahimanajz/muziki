@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FavoriteAlbum;
+use App\Services\TrackService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
@@ -11,13 +12,18 @@ use Illuminate\Http\RedirectResponse;
 
 class FavoriteAlbumController extends Controller
 {
+    public function __construct(protected TrackService $trackServie)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $favAlbums = FavoriteAlbum::where("userId",  Auth::id())->orderBy('created_at', 'desc')->get();
-        return Inertia::render("Album", ["favoriteAlbums" => $favAlbums]);
+    
+        $favAlbums = FavoriteAlbum::where("userId",  Auth::id())->with("tracks")->orderBy('created_at', 'desc')->get();
+        return Inertia::render("Favorite/Albums/IndexPage", ["favoriteAlbums" => $favAlbums]);
     }
 
     /**
@@ -26,8 +32,9 @@ class FavoriteAlbumController extends Controller
     public function store(Request $request):RedirectResponse
     {
         $data = array_merge($request->all(), ["userId" => Auth::id()]);
-        FavoriteAlbum::create($data);
-        return redirect()->route("albums.index"); 
+        $album = FavoriteAlbum::create($data);
+        $this->trackServie->createTrack(albumId: $album->id, tracks: $request->tracks);
+        return redirect()->route("album.index"); 
 
     }
 

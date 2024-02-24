@@ -25,6 +25,9 @@ const AlbumCard = ({ auth, album, saveAlbum }) => {
                         <p className="text-gray-600">
                             Play(s): {album?.playCount}
                         </p>
+                        <p className="text-gray-600">
+                            Listeners: {album?.listeners}
+                        </p>
                         <Link
                             href={album?.url}
                             target="_blank"
