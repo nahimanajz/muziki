@@ -15,7 +15,7 @@ export default function GuestLinks({ auth, links, searchSection, contents }) {
                     Album
                 </NavLink>
                 <NavLink
-                    //href={route("artist")}
+                    href={"/"}
                     className={menuClx}
                 >
                     Artist

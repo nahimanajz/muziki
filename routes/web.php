@@ -44,8 +44,12 @@ Route::controller(SearchController::class)->group(function(){
     Route::post('/search/album', 'album')->name('search.album');
     Route::get('/find/album', 'findAlbum')->name("find.album");
 });
-//TODO: add middle ware auth to accept only request for authenticated users
-Route::resource("artist", FavoriteArtistController::class);
-Route::resource("album", FavoriteAlbumController::class);
+
+
+Route::middleware('auth')->group(function(){
+    Route::resource("artist", FavoriteArtistController::class);
+    Route::resource("album", FavoriteAlbumController::class);
+});
+
 
 require __DIR__.'/auth.php';

@@ -62,3 +62,11 @@ Available fields
 ----------------
 - 
  [](https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=8b238083d2af17e0a983a19782a88ddd&artist=Cher&album=Believe&format=json)
+
+ `test with pest`
+ **Run test**
+ ``` ./vendor/bin/pest```
+ ## Pest Plugins 
+ https://pestphp.com/docs/plugins
+ ## Running filtered test
+ - php artisan test --filter=FavoriteArtistTest

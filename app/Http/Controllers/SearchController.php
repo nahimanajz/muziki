@@ -30,8 +30,6 @@ class SearchController extends Controller
     }
     public function artist(Request $request): Response
     {
-
-
         $this->validate($request, [
             "artist" => "required"
         ]);
