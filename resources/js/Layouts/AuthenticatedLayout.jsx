@@ -13,7 +13,7 @@ export default function Authenticated({ user, header, children }) {
     <div className="flex h-screen">
       <Sidebar isOpen={isSidebarOpen} />
       <div className="flex flex-col flex-1">
-        <TopNav toggleSidebar={toggleSidebar}/>
+        <TopNav toggleSidebar={toggleSidebar} user={user}/>
     
         <div className="p-4">
           <h1>{children}</h1>

@@ -22,7 +22,7 @@ export default function Artist({ auth, artists, favoriteArtists }) {
             className="mb-12 float-end relative"
             onClick={toggleShowFavorite}>
               
-                {showFavorite ? "Add Favorie" : "Show Favorites"}
+                {showFavorite ? "Add Favorite" : "Show Favorites"}
             </PrimaryButton>
             {!showFavorite ? (
                 <>

@@ -20,6 +20,7 @@ class SearchControllerTest extends TestCase
     {
         $response = $this->get('/find/album');
         $response->assertStatus(200);
+    
     }
 
 
@@ -50,5 +51,6 @@ class SearchControllerTest extends TestCase
     {
         $response = $this->post('/search/artist', ["artist" => "Cher"]);
         $response->assertInertia(fn (Assert $page) => $page->component('Welcome')->has("artists")->where("artists.0.listeners", "1653174"));
+      
     }
 }
