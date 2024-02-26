@@ -19,7 +19,7 @@ export default function Login({ status }) {
     return (
         <GuestLayout>
             <Head title="Log in" />
-            <form onSubmit={submit} className="w-1/3 shadow-lg p-[32px] my-[64px]">
+            <form onSubmit={submit} className="md:w-1/3 w-full shadow-lg p-[32px] my-[64px]">
                 <div className="mt-4">
                     <InputLabel htmlFor="email" value="Email" />
 
