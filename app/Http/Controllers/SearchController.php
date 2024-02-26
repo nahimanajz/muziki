@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
+use Throwable;
 
 /**
  * 1. return search screens artist or album
@@ -46,8 +47,17 @@ class SearchController extends Controller
             "album" => "required",
             "artist" => "required"
         ]);
+ 
+        try {
+            $response = $this->apiService->searchAlbum(artist: $request->artist, album: $request->album);
+            return $this->inertiaPage($response);
+        } catch (Throwable $exception) {
+            return   $this->inertiaPage(["message" => "Album not found"]);
+        }
+    }
 
-        $response = $this->apiService->searchAlbum(artist: $request->artist, album: $request->album);
+    private function inertiaPage($response): Response
+    {
         return Inertia::render("Search/Album", $response);
     }
 }

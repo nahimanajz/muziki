@@ -6,7 +6,7 @@ import { useForm } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-export default function Album({ auth, album }) {
+export default function Album({ auth, album, message }) {
     const { data, setData, post, processing, progress, errors } = useForm();
 
     useEffect(() => {
@@ -31,8 +31,8 @@ export default function Album({ auth, album }) {
 
     if (auth && auth.user) {
         return (
-            <AuthenticatedLayout>
-                <SearchForm />
+            <AuthenticatedLayout user={auth.user}>
+                <SearchForm message={message}/>
                 <AlbumCard
                     album={data}
                     auth={auth}
@@ -44,7 +44,7 @@ export default function Album({ auth, album }) {
     return (
         <GuestLayout searchSection={<SearchForm />}>
             <div className=" h-full w-full flex flex-wrap grow">
-                <AlbumCard album={data} />
+                <AlbumCard album={data}  />
             </div>
         </GuestLayout>
     );

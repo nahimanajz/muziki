@@ -3,11 +3,15 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import PrimaryButton from "../PrimaryButton";
+import { toast } from "react-toastify";
 
-export default function SearchForm({ setAlbumData }) {
+export default function SearchForm({ message }) {
     const { data, setData, post, processing, errors, reset } = useForm({});
     const doFindAlbum = () => {
         post(route("search.album"));
+        if(message){
+            toast.error(message);
+        }
        
     };
     const handleChange = (e) => {
