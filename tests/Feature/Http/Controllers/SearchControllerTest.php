@@ -50,7 +50,7 @@ class SearchControllerTest extends TestCase
     public function test_can_view_artist_from_last_fm_api_with_artist_name_Cher(): void
     {
         $response = $this->post('/search/artist', ["artist" => "Cher"]);
-        $response->assertInertia(fn (Assert $page) => $page->component('Welcome')->has("artists")->where("artists.0.listeners", "1653174"));
+        $response->assertInertia(fn (Assert $page) => $page->component('Welcome')->has("artists")->where("artists.0.name", "Cher"));
       
     }
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import TopNav from '@/Components/Admin/TopNav';
-import Sidebar from '@/Components/Admin/Sidebar';
+import TopNav from '@/Components/Navs/TopNav';
+import Sidebar from '@/Components/Navs/Sidebar';
 
 export default function Authenticated({ user, header, children }) {
    

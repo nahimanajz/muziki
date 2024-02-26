@@ -4,9 +4,10 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import GuestLayout from "@/Layouts/GuestLayout";
 import { useForm } from "@inertiajs/react";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Album({ auth, album }) {
-    const { data, setData,post,processing, progress, errors } = useForm();
+    const { data, setData, post, processing, progress, errors } = useForm();
 
     useEffect(() => {
         setData({
@@ -17,18 +18,26 @@ export default function Album({ auth, album }) {
             url: album?.url,
             published: album?.wiki?.published,
             tracks: album?.tracks?.track,
-            listeners: album?.listeners
+            listeners: album?.listeners,
         });
     }, [album]);
     const handleAddToFavorite = () => {
-        post(route("album.store"))
+        if (!data.published && !data.tracks) {
+            toast.error("Release date and tracks must be provided");
+        } else {
+            post(route("album.store"));
+        }
     };
 
     if (auth && auth.user) {
         return (
             <AuthenticatedLayout>
                 <SearchForm />
-                <AlbumCard album={data}  auth={auth} saveAlbum={handleAddToFavorite}/>
+                <AlbumCard
+                    album={data}
+                    auth={auth}
+                    saveAlbum={handleAddToFavorite}
+                />
             </AuthenticatedLayout>
         );
     }

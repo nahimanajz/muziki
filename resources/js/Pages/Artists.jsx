@@ -42,7 +42,7 @@ export default function Artist({ auth, artists, favoriteArtists }) {
                     </div>
                 </>
             ) : (
-                <div className="p-auto">
+                <div className="p-auto mt-[24px]">
                     <Table data={favoriteArtists} />
                 </div>
             )}

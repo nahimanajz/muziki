@@ -2,19 +2,16 @@ import { Link } from "@inertiajs/react";
 import React from "react";
 import Tracks from "./Track/Tracks";
 import PrimaryButton from "../PrimaryButton";
+import EmptyData from "../EmptyData";
 
 const AlbumCard = ({ auth, album, saveAlbum }) => {
-   
-
     return (
         <>
             {!album.name ? (
-                <span className="w-full text-xl font-semibold text-gray-500 text-center ml-3 mt-3">
-                    No album data yet
-                </span>
+                <EmptyData title={"No albums data yet"} />
             ) : (
                 <div className="bg-white rounded-lg p-4 flex items-start justify-start w-full flex-wrap ">
-                    <div className=" shadow-md p-12">
+                    <div className=" shadow-md p-12 space-y-[8px]">
                         <h2 className="text-xl font-semibold">
                             Album: {album?.name}
                         </h2>
@@ -36,11 +33,14 @@ const AlbumCard = ({ auth, album, saveAlbum }) => {
                         >
                             {album?.url}
                         </Link>
+                        <div>
+
                         {auth?.user && 
                             <PrimaryButton onClick={saveAlbum}>
                                 Add to Favorite
                             </PrimaryButton>
                         }
+                        </div>
                       
                     </div>
                     <Tracks tracks={album.tracks} />

@@ -1,17 +1,15 @@
+import SearchForm from "@/Components/Album/SearchForm";
 import AlbumTable from "@/Components/Album/Table";
 import PrimaryButton from "@/Components/PrimaryButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-export default function IndexPage({ favoriteAlbums }) {
+export default function IndexPage({ auth, favoriteAlbums }) {
     return (
-        <AuthenticatedLayout>
+        <AuthenticatedLayout user={auth.user}>
             <Head title="Favorite Albums" />
             {favoriteAlbums.length  === 0? (
-                <Link className=" bg-gray-800 text-white text-base font-medium px-[32px] py-[16px] rounded-md my-[24px]" href={route("find.album")}>
-                    {" "}
-                    Add Album
-                </Link>
+                 <SearchForm />
             ) : (
             
                  <AlbumTable data={favoriteAlbums} />

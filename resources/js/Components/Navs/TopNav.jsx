@@ -2,40 +2,17 @@ import React, { useState } from "react";
 import Dropdown from "../Dropdown";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 
-const TopNav = ({ user, header, toggleSidebar }) => {
+const TopNav = ({ user, header}) => {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
     return (
         <>
-            <nav className="bg-white border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="bg-white border-b border-gray-300">
+                <div className="px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
-                            <div className="shrink-0 flex items-center">
-                                
-                                <button onClick={toggleSidebar} className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                                    <svg
-                                        className="h-6 w-6"
-                                        stroke="currentColor"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            className="inline-flex"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M4 6h16M4 12h16M4 18h16"
-                                        ></path>
-                                        <path
-                                            className="hidden"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M6 18L18 6M6 6l12 12"
-                                        ></path>
-                                    </svg>
-                                </button>
+                            <div className="shrink-0 flex items-center md:hidden block">
+                               
                             </div>
                         </div>
 
@@ -139,6 +116,18 @@ const TopNav = ({ user, header, toggleSidebar }) => {
                             active={route().current("dashboard")}
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("artist.index")}
+                            active={route().current("artist.index")}
+                        >
+                            Artists
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("album.index")}
+                            active={route().current("album.index")}
+                        >
+                            Albums
                         </ResponsiveNavLink>
                     </div>
 

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import ActionIcons from "../ActionIcons";
 import DeleteModal from "../DeleteModal";
-import { router } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import EditModal from "./EditModel";
+import moment from "moment";
+import { FaInfo, FaMusic } from "react-icons/fa";
 
 export default function Table({ data }) {
     const [deleteModal, setDeleteModal] = useState(false);
@@ -26,7 +28,7 @@ export default function Table({ data }) {
     const tdClx = "px-6 py-4 whitespace-nowrap";
     return (
         <>
-            <table className="min-w-full divide-y divide-gray-200">
+            <table className=" w-full divide-y divide-gray-200 shadow">
                 <thead className="bg-gray-50">
                     <tr>
                         <th className={thClx}>Name</th>
@@ -46,7 +48,11 @@ export default function Table({ data }) {
                                 <td className={tdClx}>{record.artist}</td>
                                 <td className={tdClx}>{record.url}</td>
                                 <td className={tdClx}>{record.playCount}</td>
-                                <td className={tdClx}>{record.published}</td>
+                                <td className={tdClx}>
+                                    {moment(record.published).format(
+                                        "MMMM Do YYYY, h:mm:ss a"
+                                    )}
+                                </td>
                                 <ActionIcons
                                     onDelete={() => {
                                         setAlbum(record);
@@ -56,7 +62,14 @@ export default function Table({ data }) {
                                         setAlbum(record);
                                         toggleEditModal();
                                     }}
-                                    onShowDetail={undefined}
+                                    detail={
+                                        <Link href={`/album/${record.id}`}>
+                                            <FaMusic
+                                                size={15}
+                                                color="slate-400"
+                                            />
+                                        </Link>
+                                    }
                                 />
                             </tr>
                         ))}

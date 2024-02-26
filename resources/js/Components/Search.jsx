@@ -56,6 +56,7 @@ export default function Search() {
                     </div>
                     <div className="self-center pt-7">
                         <PrimaryButton
+                        id="search-button"
                             className="ms-4  text-white  rounded-2xl text-base"
                             type="submit"
                         >

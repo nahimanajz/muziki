@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
-
+use Inertia\Response;
 
 class FavoriteAlbumController extends Controller
 {
@@ -31,6 +31,7 @@ class FavoriteAlbumController extends Controller
      */
     public function store(Request $request):RedirectResponse
     {
+
         $data = array_merge($request->all(), ["userId" => Auth::id()]);
         $album = FavoriteAlbum::create($data);
         $this->trackServie->createTrack(albumId: $album->id, tracks: $request->tracks);
@@ -41,9 +42,10 @@ class FavoriteAlbumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(FavoriteAlbum $favoriteAlbum)
+    public function show(int $favoriteAlbum):Response
     {
-        //
+       $album= ["tracks"=>FavoriteAlbum::find($favoriteAlbum)->tracks];
+        return Inertia::render("Favorite/Albums/TracksPage",$album );   
     }
 
     /**
