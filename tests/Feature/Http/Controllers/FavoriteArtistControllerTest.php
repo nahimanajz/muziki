@@ -5,13 +5,12 @@ namespace Tests\Feature\Http\Controllers;
 use App\Models\FavoriteArtist;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Inertia\Testing\AssertableInertia as Assert;
 
 class FavoriteArtistControllerTest extends TestCase
 {
-
+    use RefreshDatabase;
 
     public function test_artists_page_get_opened_with_artists_list_to_authenticated_users()
     {

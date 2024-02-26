@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import ApplicationLogo from "../ApplicationLogo";
-import { Link } from "@inertiajs/react";
-import NavLink from "../NavLink";
 import Dropdown from "../Dropdown";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 
