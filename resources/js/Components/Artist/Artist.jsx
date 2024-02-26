@@ -1,6 +1,6 @@
 import NavLink from "@/Components/NavLink";
 import PrimaryButton from "../PrimaryButton";
-import { useForm, usePage } from "@inertiajs/react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 import { toast } from "react-toastify";
 import InputError from "../InputError";
 
@@ -10,7 +10,7 @@ export default function Artist({ auth, artist, message }) {
 
     const addToFavorite = () => {
         post(route("artist.store"));
-        console.log(messages);
+       
     };
 
     return (
@@ -26,12 +26,12 @@ export default function Artist({ auth, artist, message }) {
                 <h2 className="font-semibold mt-2 text-slate-800">
                     {artist.listeners}
                 </h2>
-                <NavLink
+                <Link
                     className="font-semibold mt-2 text-slate-800 hover:text-secondary hover:no-underline"
                     href={artist.url}
                 >
                     {artist.url.substring(0, 15)}...
-                </NavLink>
+                </Link>
             </div>
             <p className="text-dark mt-2 font-bold">{artist.streamable !=0 ?"streamable": "not streamable"}</p>
             {auth && auth.user ? (

@@ -9,18 +9,9 @@ import { Head, Link } from '@inertiajs/react';
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
         >
             <Head title="Dashboard" />
-            <div className='w-full h-full flex flex-col'>
-                <div className='flex justify between'>
-                <h2 className='text-xl font-semibold text-gray-800'> Favorite albums</h2>
-                    <Link className='' href={route("find.album")}> Add Album</Link>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            
-                        </tr>
-                    </thead>
-                </table>
+            <div className='w-full h-full flex flex-col flex justify-center items-center text-4xl font-bold leading-7'>
+               Welcome {auth.user.name}
+                
             </div>
 
             
