@@ -12,9 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('favorite_artists', function (Blueprint $table) {
-            $table->uuid("id")->primary();
-            $table->string("name");
+            $table->id();
+            $table->foreignId("userId");
+            $table->string("name")->unique();
+            $table->integer("listeners");
+            $table->boolean("streamable");
+
+            $table->uuid("mbid")->nullable();
+            $table->string("url");
+            $table->string("image")->default(env("DEFAULT_IMAGE"));
             $table->timestamps();
+
+            $table->foreign("userId")->references("id")->on("users");
         });
     }
 

@@ -22,7 +22,6 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route('register'));
     };
 
@@ -30,7 +29,7 @@ export default function Register() {
         <GuestLayout>
             <Head title="Register" />
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit}  className="md:w-1/3 w-full shadow-lg p-[32px] my-[64px]">
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
 

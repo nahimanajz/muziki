@@ -1,51 +1,47 @@
-# Question
-ask for real endpoints to retreive album and artist because some of instructed keys are missing from response
+# Muziki
+Muziki is a web application that allows users to search for artist's information and artist's albums related songs yet  authorized users can save into favorites buckets to review after 
+
+### Installation guide
+
+  Make sure you have  PHP > 8.0.0 version  with Mysql and composer are installed to then clone [this](https://github.com/nahimanajz/muziki.git) repository
+  run 
+  - cd muziki/
+  -  composer update
+  - npm install
+  - npm run dev
+  - php artisan serve 
+  yet in your browser open localhost:8080 or other link which can appear in your terminal once port `8000` is occupied by another computer process
+
+### Running tests
+This project is tested with (Pest)[https://pestphp.com/] and [dusk] [https://laravel.com/docs/10.x/dusk]
+
+  *Test with pest*
+ ``` ./vendor/bin/pest``` or ``` php artisan test ```
+ *Test with Dusk*
+ ``` php artisan dusk ```
 
 
-[artistUrl](https://ws.audioscrobbler.com/2.0/?method=artist.search&artist=taylorswift&api_key=8b238083d2af17e0a983a19782a88ddd&format=json)
-https://ws.audioscrobbler.com/2.0/?method=artist.search&artist=taylorswift&api_key=APIKEY&format=json
+ ## Testing pages with laravel dusk
+ - Install `composer require laravel/dusk:* --ignore-platform-req=ext-zip`
 
-### Artist available fields:
------------------------
-name:string
-listeners:number
-mbid:string
-url:url
-sreamable:boolean,
-images: [{
-
-}]
-
-### missing Fields
-- top-tracks,
-- albums,
-- related artists
-
-[albumUrl](https://ws.audioscrobbler.com/2.0/?method=album.search&album=lsd&api_key=8b238083d2af17e0a983a19782a88ddd&format=json)
-
-### Album available fields
---------------------------
-name:string,
-artist:string
-url:url,
-streamable:boolean,
-mbid:string
-images: [
-    {
-        "#text": url,
-        "size":medium
-}
-]
-
-### Missing fields
-- ReleaseDate
-- Tracklist
-
-# workflow
-1. integrating app with react [this](https://bagisto.com/en/how-to-integrate-third-party-apis-in-laravel/) ✅
-2. connect socialite ✅
-3. making migrations based on available fields from api response 
-4. connect third part in controller using [link](https://bagisto.com/en/how-to-integrate-third-party-apis-in-laravel/)
-5. create git [repository](https://github.com/nahimanajz)
+ N.b: If you encounter ``Class "ZipArchive" not found ``
+ 1. You need to have chrome browser 122 or higher installed
+ 2. In terminal type php --ini, secondly open php.ini file and add `extension=zip` save and install by ` composer require laravel/dusk:* `
 
 
+### Tools
+- Mysql
+- Laravel 10 and PHP 8.2.2
+- Inertia with ReactJs
+- Pest and Dusk for testing
+- Composer package manager for PHP packages
+
+### Features
+- Search artist by name
+- Search album by artist name and album name
+- Register, Login, update profile and Logout
+- Create, Read, Edit and delete favorite album
+- Create, Read, Edit and delete favorite artist
+
+
+### Developed by Janvier Nahimana

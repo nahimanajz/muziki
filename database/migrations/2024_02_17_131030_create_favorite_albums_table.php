@@ -13,8 +13,17 @@ return new class extends Migration
     {
         Schema::create('favorite_albums', function (Blueprint $table) {
             $table->id();
-         //   $table->
+            $table->string("name");
+            $table->string("artist");
+            $table->foreignId("userId");
+            $table->string("url");
+            $table->integer("playCount");
+            $table->dateTime("published");
             $table->timestamps();
+
+            $table->foreign("userId")->references("id")->on("users");
+
+
         });
     }
 

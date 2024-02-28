@@ -2,31 +2,44 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\FavoriteArtist;
+use Exception;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+
 
 class FavoriteArtistController extends Controller
 {
-    public function __construct()
-    {
-        //$this->auth();
-    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
-       
-        return Inertia::render("artists")->middleware(["auth"]);
+        $favArtists = FavoriteArtist::where("userId",  Auth::id())->orderBy('created_at', 'desc')->get();
+        return Inertia::render("Artists", ["favoriteArtists" => $favArtists]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
+
+        try {
+            $request->validate([
+                "name" => "required|string|unique:favorite_artists"
+            ]);
+
+            FavoriteArtist::create(array_merge($request->all(), ["userId" => $request->user()->id]));
+            return redirect("/artist")->with("message", "Favorite artist is saved");
+        } catch (Exception $e) {
+            return redirect("artist")->with("error", $e->getMessage());
+        }
     }
 
     /**
@@ -34,29 +47,36 @@ class FavoriteArtistController extends Controller
      */
     public function show(FavoriteArtist $favoriteArtist)
     {
-        //
+        // return
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FavoriteArtist $favoriteArtist)
+    public function update(Request $request, FavoriteArtist $favoriteArtist): RedirectResponse
     {
-        //
+
+        $validated = $request->validate([
+            "name" => "required|string",
+            "listeners" => "required",
+            "mbid" => "nullable",
+            "streamable" => "required",
+            "url" => "url:http,https|required",
+
+        ]);
+
+        $artist = FavoriteArtist::find($request->route('artist'));
+        $artist->update($validated);
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FavoriteArtist $favoriteArtist)
+    public function destroy(int $artistId): RedirectResponse
     {
-        //
+        $artist = FavoriteArtist::find($artistId);
+        $artist->delete();
+        return redirect()->back();
     }
-    //     implement the artist and album search functionalities using Laravel’s built
-// in controllers and resource routes. A
-//TODO: search album by name
-// public function searchAlbums(string $album):string[]{
-
-// }
-
 }
