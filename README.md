@@ -28,7 +28,7 @@ This project is tested with (Pest)[https://pestphp.com/] and [dusk] [https://lar
  N.b: If you encounter ``Class "ZipArchive" not found ``
  1. You need to have chrome browser 122 or higher installed
  2. In terminal type php --ini, secondly open php.ini file and add `extension=zip` save and install by ` composer require laravel/dusk:* `
-
+ 3. Running rest will truncate db thus you are encouraged to create new user inorder to test functionality on browser
 
 ### Tools
 - Sqlite  ``you can use Mysql`` 
