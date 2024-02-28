@@ -6,10 +6,11 @@ Muziki is a web application that allows users to search for artist's information
   Make sure you have  PHP > 8.0.0 version  with Mysql and composer are installed to then clone [this](https://github.com/nahimanajz/muziki.git) repository
   run 
   - cd muziki/
+  - cp .env.example .env  // fill received env variable received from email
   -  composer update
   - npm install
   - npm run dev
-  - php artisan serve 
+  - php artisan serve // Run this within other tab of terminal
   yet in your browser open localhost:8080 or other link which can appear in your terminal once port `8000` is occupied by another computer process
 
 ### Running tests
@@ -27,10 +28,10 @@ This project is tested with (Pest)[https://pestphp.com/] and [dusk] [https://lar
  N.b: If you encounter ``Class "ZipArchive" not found ``
  1. You need to have chrome browser 122 or higher installed
  2. In terminal type php --ini, secondly open php.ini file and add `extension=zip` save and install by ` composer require laravel/dusk:* `
-
+ 3. Running rest will truncate db thus you are encouraged to create new user inorder to test functionality on browser
 
 ### Tools
-- Mysql
+- Sqlite  ``you can use Mysql`` 
 - Laravel 10 and PHP 8.2.2
 - Inertia with ReactJs
 - Pest and Dusk for testing
