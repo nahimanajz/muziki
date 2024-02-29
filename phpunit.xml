@@ -28,9 +28,5 @@
         <env name="QUEUE_CONNECTION" value="sync" />
         <env name="SESSION_DRIVER" value="array" />
         <env name="TELESCOPE_ENABLED" value="false" />
-
-        <ini name="xdebug.mode" value="coverage" />
-        <!-- OR -->
-        <env name="PHPUNIT_CODE_COVERAGE" value="pcov" />
     </php>
 </phpunit>

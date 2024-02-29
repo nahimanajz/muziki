@@ -21,6 +21,7 @@ This project is tested with (Pest)[https://pestphp.com/] and [dusk] [https://lar
  ``` ./vendor/bin/pest``` or ``` php artisan test ```
  *Test with Dusk*
  ``` php artisan dusk ```
+ if dusk test don't run  head over to ``env file`` and set `APP_URL` to ``APP_URL=http://localhost:8000``
 
 
  ## Testing pages with laravel dusk
