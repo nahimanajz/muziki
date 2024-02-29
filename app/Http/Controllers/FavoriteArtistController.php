@@ -36,9 +36,9 @@ class FavoriteArtistController extends Controller
             ]);
 
             FavoriteArtist::create(array_merge($request->all(), ["userId" => $request->user()->id]));
-            return redirect("/artist")->with("message", "Favorite artist is saved");
+            return redirect("/artist");
         } catch (Exception $e) {
-            return redirect("artist")->with("error", $e->getMessage());
+            return redirect("artist");
         }
     }
 
