@@ -9,24 +9,33 @@ import { toast } from "react-toastify";
 export default function EditModal({ artist, show, toggleShow }) {
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({});
+    const [submited, setSubmitted] = useState();
     const handleChange = (e) => {
         setData({
             ...data,
-            [e.target.name]: e.target.value
-        }); 
+            [e.target.name]: e.target.value,
+        });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        patch(route("artist.update", artist.id))
-        toggleShow()
-        toast(`${data.name} is updated successfully`)
-
+        patch(route("artist.update", artist.id));
+        setSubmitted(true);
     };
+    
+    const showResponse=(errors)=>{
+        if (submited && Object.keys(errors).length == 0) {
+            toggleShow();
+            toast(`${data.name} is updated successfully`);
+            setSubmitted(false);
+        }
+    }
+    
     useEffect(() => {
         setData(artist);
-    },[artist]);
-    
+        showResponse(errors);
+    }, [artist, errors]);
+
     return (
         <Modal
             show={show}
@@ -41,10 +50,7 @@ export default function EditModal({ artist, show, toggleShow }) {
                         Edit Artist
                     </div>
                     <div>
-                        <form
-                          
-                            className="max-w-lg mx-auto space-y-[24px]"
-                        >
+                        <form className="max-w-lg mx-auto space-y-[24px]">
                             <div>
                                 <InputLabel htmlFor="name" value="Name" />
 
@@ -115,7 +121,7 @@ export default function EditModal({ artist, show, toggleShow }) {
                                 <select
                                     name="streamable"
                                     id="streamable"
-                                    defaultValue={data?.streamable ?? "1"} 
+                                    defaultValue={data?.streamable ?? "1"}
                                     onChange={(e) =>
                                         setData("streamable", e.target.value)
                                     }
@@ -136,7 +142,7 @@ export default function EditModal({ artist, show, toggleShow }) {
                             onClick={toggleShow}
                             className="text-gray-600 mr-2"
                         >
-                            Cancel
+                            Close
                         </button>
                         <button
                             onClick={handleSubmit}

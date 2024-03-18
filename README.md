@@ -46,5 +46,31 @@ This project is tested with (Pest)[https://pestphp.com/] and [dusk] [https://lar
 - Create, Read, Edit and delete favorite album
 - Create, Read, Edit and delete favorite artist
 
+## feedback
+1. You need to implement the Google login.
+2. Use pagination, eg: FavoriteAlbumController
 
+`$favoriteArtists = FavoriteAlbum:::where("userId", Auth::id())->with("tracks")->orderBy('created_at', 'desc')->get()`
+Change to
+`$favoriteArtists = FavoriteAlbum:::where("userId", Auth::id())->with("tracks")->orderBy('created_at', 'desc')->paginate();`✅
+
+
+3. Use policies to handle authorisation
+```
+ public function show(FavoriteAlbum $favoriteAlbum):Response
+  {
+	    $this->authorize('show', $favoriteAlbum);
+  {
+```
+4. Move validation to a separate validation/request class. You can read more about it here
+
+```
+$validated = $request->validate([
+      "name" => "required|string",
+      "listeners" => "required",
+      "mbid" => "nullable",
+      "streamable" => "required",
+      "url" => "url:http,https|required",
+]);
+```
 ### Developed by Janvier Nahimana

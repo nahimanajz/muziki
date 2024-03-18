@@ -16,7 +16,7 @@ export default function GuestLinks({ auth, links, searchSection, contents }) {
                 className="h-6 w-6 absolute right-3 top-1 md:hidden"
                 onClick={toggleMenu}
             >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                 <g
                     id="SVGRepo_tracerCarrier"
                     strokeLinecap="round"

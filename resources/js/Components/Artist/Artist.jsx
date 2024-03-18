@@ -1,7 +1,6 @@
-import NavLink from "@/Components/NavLink";
+
 import PrimaryButton from "../PrimaryButton";
 import { Link, useForm, usePage } from "@inertiajs/react";
-import { toast } from "react-toastify";
 import InputError from "../InputError";
 
 export default function Artist({ auth, artist, message }) {

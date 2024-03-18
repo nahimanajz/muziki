@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 export default function EditModal({ album, show, toggleShow }) {
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({});
+    const [submited, setSubmitted] = useState();
+
     const handleChange = (e) => {
         setData({
             ...data,
@@ -19,15 +21,23 @@ export default function EditModal({ album, show, toggleShow }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         patch(route("album.update", album.id))
-        if(!errors){
+        setSubmitted(true);
 
-            toggleShow()
-            toast(`${data.name} is updated successfully`)
-        }
     };
+
+    const showResponse=(errors)=>{
+        if (submited && Object.keys(errors).length == 0) {
+            toggleShow();
+            toast(`${data.name} is updated successfully`);
+            setSubmitted(false);
+        }
+    }
+
     useEffect(() => {
         setData(album);
-    },[album]);
+        showResponse(errors);
+
+    },[album, errors]);
     
     return (
         <Modal
@@ -132,7 +142,7 @@ export default function EditModal({ album, show, toggleShow }) {
                             onClick={toggleShow}
                             className="text-gray-600 mr-2"
                         >
-                            Cancel
+                            Close
                         </button>
                         <button
                             onClick={handleSubmit}

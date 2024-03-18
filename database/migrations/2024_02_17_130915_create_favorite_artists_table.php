@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('favorite_artists', function (Blueprint $table) {
             $table->id();
             $table->foreignId("userId");
-            $table->string("name")->unique();
+            $table->string("name");
             $table->integer("listeners");
             $table->boolean("streamable");
 

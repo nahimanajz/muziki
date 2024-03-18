@@ -28,7 +28,7 @@ export default function SearchForm({ message }) {
             <div className="p-4">
                 <InputLabel value={"Artist"} />
                 <TextInput name="album" id="album" onChange={handleChange} placeholder={"Enter album owned by written artist"}/>
-                <InputError message={errors?.artist} />
+                <InputError message={errors?.album} />
             </div>
             <div className="p-4">
                 <PrimaryButton

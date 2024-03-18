@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Http\Requests\StoreArtistRequest;
+use App\Http\Requests\UpdateArtistRequest;
 use App\Models\FavoriteArtist;
 use Exception;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
-
+use Illuminate\Http\Request;
 
 class FavoriteArtistController extends Controller
 {
@@ -29,16 +29,13 @@ class FavoriteArtistController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-
         try {
-            $request->validate([
-                "name" => "required|string|unique:favorite_artists"
-            ]);
-
-            FavoriteArtist::create(array_merge($request->all(), ["userId" => $request->user()->id]));
+            $data = array_merge($request->all(), ["userId" => Auth::id()]);
+            FavoriteArtist::create($data);
             return redirect("/artist");
         } catch (Exception $e) {
-            return redirect("artist");
+            dd($e);
+            return redirect("/artist");
         }
     }
 
@@ -53,18 +50,10 @@ class FavoriteArtistController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FavoriteArtist $favoriteArtist): RedirectResponse
+    public function update(UpdateArtistRequest $request, FavoriteArtist $favoriteArtist): RedirectResponse
     {
 
-        $validated = $request->validate([
-            "name" => "required|string",
-            "listeners" => "required",
-            "mbid" => "nullable",
-            "streamable" => "required",
-            "url" => "url:http,https|required",
-
-        ]);
-
+        $validated = $request->validated();
         $artist = FavoriteArtist::find($request->route('artist'));
         $artist->update($validated);
         return redirect()->back();

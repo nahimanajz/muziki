@@ -47,7 +47,6 @@ export default function Search() {
                                  `}
                             value={data.name}
                             onChange={handleChange}
-                            required
                             isFocused
                             autoComplete="search"
                         />

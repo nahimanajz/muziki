@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateAlbumRequest;
 use App\Models\FavoriteAlbum;
 use App\Services\TrackService;
 use Illuminate\Http\Request;
@@ -51,16 +52,10 @@ class FavoriteAlbumController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FavoriteAlbum $favoriteAlbum)
+    public function update(UpdateAlbumRequest $request, FavoriteAlbum $favoriteAlbum)
     {
-        //
-        $validated = $request->validate([
-            "name" => "required|string",
-            "artist" => "required",
-            "url" => "url:http,https|required",
-            "playCount" => "required|integer",
-        ]);
         
+        $validated = $request->validated();
         $album = FavoriteAlbum::find($request->route('album'));
         $album->update($validated);
         return redirect()->back();
