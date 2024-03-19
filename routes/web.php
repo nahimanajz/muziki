@@ -4,6 +4,7 @@ use App\Http\Controllers\FavoriteAlbumController;
 use App\Http\Controllers\FavoriteArtistController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
+use App\Models\Track;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -50,6 +51,8 @@ Route::middleware(["auth"])->group(function(){
     Route::resource("artist", FavoriteArtistController::class);
     Route::resource("album", FavoriteAlbumController::class);
 });
-
+Route::get("/tracks", function(){
+    return Track::paginate(2);
+});
 
 require __DIR__.'/auth.php';

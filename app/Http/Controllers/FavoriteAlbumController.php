@@ -25,7 +25,7 @@ class FavoriteAlbumController extends Controller
         $this->authorize('view', FavoriteAlbum::class);
 
 
-        $favAlbums = FavoriteAlbum::where("userId",  Auth::id())->with("tracks")->orderBy('created_at', 'desc')->get();
+        $favAlbums = FavoriteAlbum::where("userId",  Auth::id())->with("tracks")->orderBy('created_at', 'desc')->paginate(5);
         return Inertia::render("Favorite/Albums/IndexPage", ["favoriteAlbums" => $favAlbums]);
     }
 

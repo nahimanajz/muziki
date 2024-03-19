@@ -1,13 +1,32 @@
 import Search from "@/Components/Search";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import ArtistItem from "@/Components/Artist/Artist";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Table from "@/Components/Artist/Table";
 import PrimaryButton from "@/Components/PrimaryButton";
+import Pagination from "@/Components/Pagination";
+import { router } from "@inertiajs/react";
 
 export default function Artist({ auth, artists, favoriteArtists }) {
     const [showFavorite, setShowFavorite] = useState(true);
-    const toggleShowFavorite= () => setShowFavorite(!showFavorite)
+    const [pageData, setPageData] = useState(favoriteArtists.data);
+    
+    const currentPage =  favoriteArtists.current_page
+    const totalPages = favoriteArtists.total;
+
+    const toggleShowFavorite = () => setShowFavorite(!showFavorite);
+
+    const handlePageChange = useCallback(
+        (pageNumber) => {
+            const url = route("artist.index", { page: pageNumber });
+            router.visit(url, {
+                onSuccess: ({ props: { favoriteArtists } }) => {
+                    setPageData(favoriteArtists.data);
+                },
+            });
+        },
+        [pageData]
+    );
 
     return (
         <AuthenticatedLayout
@@ -18,10 +37,10 @@ export default function Artist({ auth, artists, favoriteArtists }) {
                 </h2>
             }
         >
-            <PrimaryButton 
-            className="mb-12 float-end relative"
-            onClick={toggleShowFavorite}>
-              
+            <PrimaryButton
+                className="mb-12 float-end relative"
+                onClick={toggleShowFavorite}
+            >
                 {showFavorite ? "Add Favorite" : "Show Favorites"}
             </PrimaryButton>
             {!showFavorite ? (
@@ -43,7 +62,13 @@ export default function Artist({ auth, artists, favoriteArtists }) {
                 </>
             ) : (
                 <div className="p-auto mt-[24px]">
-                    <Table data={favoriteArtists} />
+                    <Table data={pageData} />
+
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={handlePageChange}
+                    />
                 </div>
             )}
         </AuthenticatedLayout>

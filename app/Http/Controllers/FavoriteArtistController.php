@@ -22,7 +22,7 @@ class FavoriteArtistController extends Controller
        $this->authorize('view', FavoriteArtist::class);
 
         $favArtists = FavoriteArtist::where("userId",  Auth::id())
-        ->orderBy('created_at', 'desc')->get();
+        ->orderBy('created_at', 'desc')->paginate(5);
         return Inertia::render("Artists", ["favoriteArtists" => $favArtists]);
     }
 
