@@ -14,7 +14,7 @@ export default function IndexPage({ auth, favoriteAlbums }) {
         if (favoriteAlbums.length === 0) {
             toggleShowFavorite()
         }
-    });
+    },[]);
     return (
         <AuthenticatedLayout user={auth.user}>
             <Head title="Favorite Albums" />

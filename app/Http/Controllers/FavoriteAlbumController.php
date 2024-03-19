@@ -22,7 +22,9 @@ class FavoriteAlbumController extends Controller
      */
     public function index()
     {
-    
+        $this->authorize('view', FavoriteAlbum::class);
+
+
         $favAlbums = FavoriteAlbum::where("userId",  Auth::id())->with("tracks")->orderBy('created_at', 'desc')->get();
         return Inertia::render("Favorite/Albums/IndexPage", ["favoriteAlbums" => $favAlbums]);
     }
@@ -32,7 +34,7 @@ class FavoriteAlbumController extends Controller
      */
     public function store(Request $request):RedirectResponse
     {
-
+        $this->authorize("create", FavoriteAlbum::class);
         $data = array_merge($request->all(), ["userId" => Auth::id()]);
         $album = FavoriteAlbum::create($data);
         $this->trackServie->createTrack(albumId: $album->id, tracks: $request->tracks);
@@ -46,6 +48,8 @@ class FavoriteAlbumController extends Controller
     public function show(int $favoriteAlbum):Response
     {
        $album= ["tracks"=>FavoriteAlbum::find($favoriteAlbum)->tracks];
+       $this->authorize("show", FavoriteAlbum::class); 
+
         return Inertia::render("Favorite/Albums/TracksPage",$album );   
     }
 
@@ -57,7 +61,9 @@ class FavoriteAlbumController extends Controller
         
         $validated = $request->validated();
         $album = FavoriteAlbum::find($request->route('album'));
+        $this->authorize("update", $album);
         $album->update($validated);
+
         return redirect()->back();
     }
 
@@ -67,7 +73,9 @@ class FavoriteAlbumController extends Controller
     public function destroy(int $albumId):RedirectResponse
     {
         $album = FavoriteAlbum::find($albumId);
+        $this->authorize("delete", $album);
         $album->delete();
+
         return redirect()->back();
     }
 }

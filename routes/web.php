@@ -46,7 +46,7 @@ Route::controller(SearchController::class)->group(function(){
 });
 
 
-Route::middleware('auth')->group(function(){
+Route::middleware(["auth"])->group(function(){
     Route::resource("artist", FavoriteArtistController::class);
     Route::resource("album", FavoriteAlbumController::class);
 });

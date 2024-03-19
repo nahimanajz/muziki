@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreArtistRequest;
 use App\Http\Requests\UpdateArtistRequest;
 use App\Models\FavoriteArtist;
 use Exception;
@@ -20,7 +19,10 @@ class FavoriteArtistController extends Controller
      */
     public function index(): Response
     {
-        $favArtists = FavoriteArtist::where("userId",  Auth::id())->orderBy('created_at', 'desc')->get();
+       $this->authorize('view', FavoriteArtist::class);
+
+        $favArtists = FavoriteArtist::where("userId",  Auth::id())
+        ->orderBy('created_at', 'desc')->get();
         return Inertia::render("Artists", ["favoriteArtists" => $favArtists]);
     }
 
@@ -29,12 +31,12 @@ class FavoriteArtistController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $this->authorize('create', FavoriteArtist::class);
         try {
             $data = array_merge($request->all(), ["userId" => Auth::id()]);
             FavoriteArtist::create($data);
             return redirect("/artist");
         } catch (Exception $e) {
-            dd($e);
             return redirect("/artist");
         }
     }
@@ -52,9 +54,10 @@ class FavoriteArtistController extends Controller
      */
     public function update(UpdateArtistRequest $request, FavoriteArtist $favoriteArtist): RedirectResponse
     {
-
         $validated = $request->validated();
         $artist = FavoriteArtist::find($request->route('artist'));
+       
+        $this->authorize("update", $artist);
         $artist->update($validated);
         return redirect()->back();
     }
@@ -65,6 +68,7 @@ class FavoriteArtistController extends Controller
     public function destroy(int $artistId): RedirectResponse
     {
         $artist = FavoriteArtist::find($artistId);
+        $this->authorize("delete", $artist);
         $artist->delete();
         return redirect()->back();
     }
