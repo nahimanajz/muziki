@@ -16,6 +16,9 @@ export default function Login({ status }) {
 
         post(route("login"));
     };
+    const handleGoogleLogin = () => {
+        window.location.href = "http://localhost:8000/auth/google";
+    };
     return (
         <GuestLayout>
             <Head title="Log in" />
@@ -65,7 +68,17 @@ export default function Login({ status }) {
                         Sign in
                     </PrimaryButton>
                 </div>
+                <div class="block mt-4">
+                <div class="flex items-center justify-end mt-4">
+                    <img
+                        onClick={handleGoogleLogin}
+                        src="/img/btn_google_signin_dark_normal_web.png"
+                        alt="google icon"
+                    />
+                </div>
+            </div>
             </form>
+            
         </GuestLayout>
     );
 }

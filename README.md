@@ -33,7 +33,7 @@ This project is tested with (Pest)[https://pestphp.com/] and [dusk] [https://lar
  3. Running test will truncate db thus you are encouraged to create new user in order to test functionality on browser
 
 ### Tools
-- Sqlite  `` Feel free to can use Mysql`` 
+- Sqlite  `` Feel free to  use Mysql`` 
 - Laravel 10 and PHP 8.2.2
 - Inertia with ReactJs
 - Pest and Dusk for testing
@@ -46,31 +46,10 @@ This project is tested with (Pest)[https://pestphp.com/] and [dusk] [https://lar
 - Create, Read, Edit and delete favorite album
 - Create, Read, Edit and delete favorite artist
 
-## feedback
-1. You need to implement the Google login.
-2. Use pagination, eg: FavoriteAlbumController
+## updates
+- Form request validation
+- Sign in with google 
+- Paginations on albums and artist
+- Policies Authorization on `artist` and `album` CRUD(s)
 
-`$favoriteArtists = FavoriteAlbum:::where("userId", Auth::id())->with("tracks")->orderBy('created_at', 'desc')->get()`
-Change to
-`$favoriteArtists = FavoriteAlbum:::where("userId", Auth::id())->with("tracks")->orderBy('created_at', 'desc')->paginate();`✅
-
-
-3. Use policies to handle authorisation
-```
- public function show(FavoriteAlbum $favoriteAlbum):Response
-  {
-	    $this->authorize('show', $favoriteAlbum);
-  {
-```
-4. Move validation to a separate validation/request class. You can read more about it here
-
-```
-$validated = $request->validate([
-      "name" => "required|string",
-      "listeners" => "required",
-      "mbid" => "nullable",
-      "streamable" => "required",
-      "url" => "url:http,https|required",
-]);
-```
 ### Developed by Janvier Nahimana

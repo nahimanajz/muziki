@@ -10,7 +10,7 @@ import { Head, Link } from '@inertiajs/react';
         >
             <Head title="Dashboard" />
             <div className='w-full h-full flex flex-col flex justify-center items-center text-4xl font-bold leading-7'>
-               Welcome {auth.user.name}
+               Welcome {auth?.user?.name}
                 
             </div>
 
