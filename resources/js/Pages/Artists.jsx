@@ -8,11 +8,11 @@ import Pagination from "@/Components/Pagination";
 import { router } from "@inertiajs/react";
 
 export default function Artist({ auth, artists, favoriteArtists }) {
-    const [showFavorite, setShowFavorite] = useState(true);
-    const [pageData, setPageData] = useState(favoriteArtists.data);
+    const [showFavorite, setShowFavorite] = useState(false);
+    const [pageData, setPageData] = useState(favoriteArtists?.data);
     
-    const currentPage =  favoriteArtists.current_page
-    const totalPages = favoriteArtists.total;
+    const currentPage =  favoriteArtists?.current_page
+    const totalPages = favoriteArtists?.total;
 
     const toggleShowFavorite = () => setShowFavorite(!showFavorite);
 
@@ -26,8 +26,8 @@ export default function Artist({ auth, artists, favoriteArtists }) {
             });
         },
         [pageData]
-    );
-
+    ); 
+  
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -63,7 +63,7 @@ export default function Artist({ auth, artists, favoriteArtists }) {
             ) : (
                 <div className="p-auto mt-[24px]">
                     <Table data={pageData} />
-
+                    
                     <Pagination
                         currentPage={currentPage}
                         totalPages={totalPages}
