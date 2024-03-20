@@ -7,7 +7,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                 <li
                     key={i}
                     className={`${
-                        currentPage === i ? "bg-blue-500" : "bg-gray-200"
+                        currentPage === i ? "bg-slate-700 text-white" : "bg-gray-200"
                     } inline-block mx-1 px-3 py-2 rounded cursor-pointer`}
                 >
                     <button onClick={() => onPageChange(i)}>{i}</button>

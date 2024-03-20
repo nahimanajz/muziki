@@ -1,26 +1,32 @@
-import './bootstrap';
-import '../css/app.css';
+import "./bootstrap";
+import "../css/app.css";
 
-import { createRoot } from 'react-dom/client';
-import { createInertiaApp } from '@inertiajs/react';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { createRoot } from "react-dom/client";
+import { createInertiaApp } from "@inertiajs/react";
+import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const appName = import.meta.env.VITE_APP_NAME || 'MuZIKI';
+const appName = import.meta.env.VITE_APP_NAME || "MuZIKI";
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) => resolvePageComponent(`./Pages/${name}.jsx`, import.meta.glob('./Pages/**/*.jsx')),
+    resolve: (name) =>
+        resolvePageComponent(
+            `./Pages/${name}.jsx`,
+            import.meta.glob("./Pages/**/*.jsx",{eager:true})
+        ),
     setup({ el, App, props }) {
         const root = createRoot(el);
 
-        root.render(<>
-        <App {...props} />
-        <ToastContainer />
-        </>);
+        root.render(
+            <>
+                <App {...props} />
+                <ToastContainer />
+            </>
+        );
     },
     progress: {
-        color: '#4B5563',
+        color: "tomato",
     },
 });

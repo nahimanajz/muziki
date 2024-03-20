@@ -22,15 +22,15 @@ export default function EditModal({ artist, show, toggleShow }) {
         patch(route("artist.update", artist.id));
         setSubmitted(true);
     };
-    
-    const showResponse=(errors)=>{
+
+    const showResponse = (errors) => {
         if (submited && Object.keys(errors).length == 0) {
             toggleShow();
             toast(`${data.name} is updated successfully`);
             setSubmitted(false);
         }
-    }
-    
+    };
+
     useEffect(() => {
         setData(artist);
         showResponse(errors);
