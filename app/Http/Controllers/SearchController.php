@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AlbumSearchRequest;
+use App\Http\Requests\ArtistSearchRequest;
 use App\Services\ApiService;
 
 use Illuminate\Http\Request;
@@ -25,29 +27,28 @@ class SearchController extends Controller
     {
     }
 
+
     public function findAlbum(): Response
     {
         return Inertia::render('Search/Album');
     }
-    public function artist(Request $request): Response
+
+
+    public function artist(ArtistSearchRequest $request): Response
     {
-        $this->validate($request, [
-            "artist" => "required"
-        ]);
-        $artist = $request->artist;
-        $response = $this->apiService->searchArtist($artist);
+       $request->validated();
+        $response = $this->apiService->searchArtist($request->artist);
+
         if (Auth::check()) {
             return Inertia::render("Artists", $response);
         }
         return Inertia::render("Welcome", $response);
     }
-    public function album(Request $request): Response
+
+
+    public function album(AlbumSearchRequest $request): Response
     {
-        $this->validate($request, [
-            "album" => "required",
-            "artist" => "required"
-        ]);
- 
+        $request->validated();
         try {
             $response = $this->apiService->searchAlbum(artist: $request->artist, album: $request->album);
             return $this->inertiaPage($response);

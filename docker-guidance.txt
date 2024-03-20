@@ -1,0 +1,19 @@
+$ docker ps -a listing all containers
+docker start container_name | container_id
+
+docker run -d -p 9000:80 container name ==>binding ports
+docker run --name [ENTER_CONTAINER_NAME] -d -p 9000:80 container_name ==> Assigning names to containers
+
+## Building docker image
+docker build -t node-app:1.0 .
+(node-app:1.0 ) docker image name
+(.) location of the docker file
+
+
+// building client
+docker build -t muziki-react-app ./resources/
+docker run -p 3000:3000 muziki-react-app
+
+building backend
+docker build -t muziki-backend-app .
+docker run -p 8000:8000 muziki-backend-app

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateAlbumRequest;
 use App\Models\FavoriteAlbum;
 use App\Services\TrackService;
 use Illuminate\Http\Request;
@@ -21,8 +22,10 @@ class FavoriteAlbumController extends Controller
      */
     public function index()
     {
-    
-        $favAlbums = FavoriteAlbum::where("userId",  Auth::id())->with("tracks")->orderBy('created_at', 'desc')->get();
+        $this->authorize('view', FavoriteAlbum::class);
+
+
+        $favAlbums = FavoriteAlbum::where("userId",  Auth::id())->with("tracks")->orderBy('created_at', 'desc')->paginate(5);
         return Inertia::render("Favorite/Albums/IndexPage", ["favoriteAlbums" => $favAlbums]);
     }
 
@@ -31,7 +34,7 @@ class FavoriteAlbumController extends Controller
      */
     public function store(Request $request):RedirectResponse
     {
-
+        $this->authorize("create", FavoriteAlbum::class);
         $data = array_merge($request->all(), ["userId" => Auth::id()]);
         $album = FavoriteAlbum::create($data);
         $this->trackServie->createTrack(albumId: $album->id, tracks: $request->tracks);
@@ -45,24 +48,22 @@ class FavoriteAlbumController extends Controller
     public function show(int $favoriteAlbum):Response
     {
        $album= ["tracks"=>FavoriteAlbum::find($favoriteAlbum)->tracks];
+       $this->authorize("show", FavoriteAlbum::class); 
+
         return Inertia::render("Favorite/Albums/TracksPage",$album );   
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FavoriteAlbum $favoriteAlbum)
+    public function update(UpdateAlbumRequest $request, FavoriteAlbum $favoriteAlbum)
     {
-        //
-        $validated = $request->validate([
-            "name" => "required|string",
-            "artist" => "required",
-            "url" => "url:http,https|required",
-            "playCount" => "required|integer",
-        ]);
         
+        $validated = $request->validated();
         $album = FavoriteAlbum::find($request->route('album'));
+        $this->authorize("update", $album);
         $album->update($validated);
+
         return redirect()->back();
     }
 
@@ -72,7 +73,9 @@ class FavoriteAlbumController extends Controller
     public function destroy(int $albumId):RedirectResponse
     {
         $album = FavoriteAlbum::find($albumId);
+        $this->authorize("delete", $album);
         $album->delete();
+
         return redirect()->back();
     }
 }

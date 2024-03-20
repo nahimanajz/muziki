@@ -33,7 +33,7 @@ This project is tested with (Pest)[https://pestphp.com/] and [dusk] [https://lar
  3. Running test will truncate db thus you are encouraged to create new user in order to test functionality on browser
 
 ### Tools
-- Sqlite  `` Feel free to can use Mysql`` 
+- Sqlite  `` Feel free to  use Mysql`` 
 - Laravel 10 and PHP 8.2.2
 - Inertia with ReactJs
 - Pest and Dusk for testing
@@ -46,5 +46,10 @@ This project is tested with (Pest)[https://pestphp.com/] and [dusk] [https://lar
 - Create, Read, Edit and delete favorite album
 - Create, Read, Edit and delete favorite artist
 
+## updates
+- Form request validation
+- Sign in with google 
+- Paginations on albums and artist
+- Policies Authorization on `artist` and `album` CRUD(s)
 
 ### Developed by Janvier Nahimana

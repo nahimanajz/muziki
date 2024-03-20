@@ -6,11 +6,13 @@ import { router } from "@inertiajs/react";
 import DeleteModal from "../DeleteModal";
 import EditModal from "./EditModal";
 import EmptyData from "../EmptyData";
+import Pagination from "../Pagination";
 
 const Table = ({ data }) => {
     const [deleteModal, setDeleteModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
     const [artist, setArtist] = useState();
+  
 
     const toggleDeleteModal = () => setDeleteModal(!deleteModal);
     const toggleEditModal = () => setEditModal(!editModal);
@@ -20,6 +22,8 @@ const Table = ({ data }) => {
         toggleDeleteModal();
     };
 
+    
+      
     const thClx =
         "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider";
     const tdClx = "px-6 py-4 whitespace-nowrap";
