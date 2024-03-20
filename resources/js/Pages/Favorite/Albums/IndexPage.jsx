@@ -11,8 +11,8 @@ export default function IndexPage({ auth, favoriteAlbums }) {
     const [showFavorite, setShowFavorite] = useState(true);
     const [pageData, setPageData] = useState(favoriteAlbums.data);
 
-    const currentPage = favoriteAlbums.current_page;
-    const totalPages = favoriteAlbums.total;
+    const currentPage = favoriteAlbums?.current_page;
+    const totalPages = favoriteAlbums?.last_page;
 
     const handlePageChange = useCallback(
         (pageNumber) => {
@@ -28,10 +28,10 @@ export default function IndexPage({ auth, favoriteAlbums }) {
     const toggleShowFavorite = () => setShowFavorite(!showFavorite);
 
     useEffect(() => {
-        if (favoriteAlbums.length === 0) {
-            toggleShowFavorite();
+        if (favoriteAlbums.data !== pageData) {
+            setPageData(favoriteAlbums.data);
         }
-    }, []);
+    }, [favoriteAlbums, pageData]);
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -47,7 +47,7 @@ export default function IndexPage({ auth, favoriteAlbums }) {
                     {showFavorite ? "Add Favorite" : "Show Favorites"}
                 </PrimaryButton>
 
-                {showFavorite ? (
+                {showFavorite && pageData.length !== 0? (
                     <>
                         <AlbumTable data={pageData} />
 

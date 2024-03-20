@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("albumId");
             $table->string("name");
-            $table->integer("duration");
+            $table->integer("duration")->nullable();
             $table->string("url");
 
             $table->foreign("albumId")->references("id")->on("favorite_albums");
